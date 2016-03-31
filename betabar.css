@@ -1,0 +1,79 @@
+@import "@economist/component-palette";
+@import "@economist/component-grid";
+@import "@economist/component-bar-wrapper";
+@import "@economist/component-link-button";
+
+.beta-bar--old-version,
+.beta-bar--old-version:visited {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--betabar-foreground-color, var(--color-thimphu));
+}
+.beta-bar--old-version:hover {
+  color: var(--betabar-old-version-hover, var(--color-boston));
+  border-bottom: none;
+}
+
+.beta-bar {
+  background: var(--betabar-background-color, var(--betabar-text-color, var(--color-chicago)));
+  color: var(--betabar-foreground-color, var(--color-thimphu));
+  fill: var(--betabar-foreground-color, var(--color-thimphu));
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.beta-bar--message-economist {
+  font-style: italic;
+}
+
+.beta-bar--feedback {
+  color: var(--betabar-background-color, var(--betabar-text-color, var(--color-chicago)));
+  background: var(--betabar-foreground-color, var(--color-thimphu));
+  padding: var(--betabar-feedback-vertical-padding, var(--grid-spacing-hedgehog)) var(--betabar-feedback-horizontal-padding, var(--grid-spacing-sheep));
+  font-size: 1em;
+  margin:
+    -var(--betabar-feedback-vertical-padding, var(--grid-spacing-hedgehog))
+    var(--betabar-feedback-horizontal-margin, var(--grid-spacing-sheep))
+    -var(--betabar-feedback-vertical-padding, var(--grid-spacing-hedgehog))
+    0;
+}
+
+.beta-bar--feedback:hover {
+  background: var(--betabar-feedback-hover, var(--color-boston));
+}
+
+.beta-bar--close-wrapper:hover svg {
+  fill: var(--betabar-close-hover, var(--color-boston));
+}
+
+.beta-bar--buttons-wrapper {
+  margin-top: var(--betabar-buttons-vertical-spacing, var(--grid-spacing-sheep));
+  text-align: left;
+}
+
+.beta-bar--old-version {
+  float: right;
+}
+
+@media (--betabar-viewport-buttons-together) {
+  .beta-bar--old-version {
+    float: none;
+  }
+}
+
+@media (--betabar-viewport-stacked) {
+  .beta-bar {
+    line-height: var(--betabar-mobile-line-height, calc(var(--text-line-height-sans-on-step--2) + var(--extra-line-height-on-mobile, 0.2em)));
+  }
+}
+
+@media (--betabar-viewport-non-stacked) {
+  .beta-bar--buttons-wrapper {
+    float: right;
+    margin-top: 0;  /* Removing vertical padding */
+  }
+  .beta-bar--old-version {
+    margin-right: var(--betabar-spacing-from-close-button, var(--grid-spacing-sheep));
+  }
+}
+
