@@ -1,8 +1,4 @@
 import React from 'react';
-/* eslint-disable no-unused-vars */
-import { render } from 'react-dom';
-import Icon from '@economist/component-icon';
-/* eslint-enable no-unused-vars */
 import reactCookie from 'react-cookie';
 import LinkButton from '@economist/component-link-button';
 import BarWrapper from '@economist/component-bar-wrapper';
