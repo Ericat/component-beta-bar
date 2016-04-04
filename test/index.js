@@ -2,17 +2,19 @@ import 'babel-polyfill';
 import BetaBar from '../src';
 import React from 'react';
 import chai from 'chai';
-chai.should();
-import { stub } from 'sinon';
+import spies from 'chai-spies';
 import BarWrapper from '@economist/component-bar-wrapper';
+
+chai.should();
+chai.use(spies);
 
 describe('BetaBar component', () => {
   /* eslint-disable init-declarations */
   let reactCookieInstance;
   beforeEach(() => {
     reactCookieInstance = {
-      save: stub(),
-      load: stub(),
+      save: chai.spy(),
+      load: chai.spy(),
     };
   });
   /* eslint-enable init-declarations */
@@ -32,8 +34,8 @@ describe('BetaBar component', () => {
         reactCookieInstance,
       }, {});
       component.handleFallback();
-      reactCookieInstance.save.calledOnce.should.equal(true);
-      reactCookieInstance.save.lastCall.args.should.eql([
+      reactCookieInstance.save.should.have.been.called.once();
+      reactCookieInstance.save.should.have.been.called.with([
         'foo',
         'bar',
         {
@@ -43,7 +45,7 @@ describe('BetaBar component', () => {
       ]);
     });
     it('calls props.onFallback', () => {
-      const onFallback = stub();
+      const onFallback = chai.spy();
       const component = new BetaBar({
         cookieName: 'foo-close',
         cookieValue: 'bar-close',
@@ -51,7 +53,7 @@ describe('BetaBar component', () => {
         onFallback,
       }, { });
       component.handleFallback();
-      onFallback.calledOnce.should.equal(true);
+      onFallback.should.have.been.called.once();
     });
   });
   describe('handleDismiss', () => {
@@ -61,28 +63,28 @@ describe('BetaBar component', () => {
         closeCookieValue: 'bar-close',
         reactCookieInstance,
       }, {});
-      stub(component, 'setState');
+      chai.spy.on(component, 'setState');
       component.handleDismiss();
-      reactCookieInstance.save.calledOnce.should.equal(true);
-      reactCookieInstance.save.lastCall.args.should.eql([
+      reactCookieInstance.save.should.have.been.called.once();
+      reactCookieInstance.save.should.have.been.called.with([
         'foo-close',
         'bar-close',
       ]);
-      component.setState.lastCall.args[0].should.eql({
+      component.setState.save.should.have.been.called.with({
         wasDismissed: true,
       });
     });
     it('this cookie sets state.wasDismissed', () => {
-      reactCookieInstance.load = stub().withArgs('foo-close').returns('bar-close');
+      reactCookieInstance.load = chai.spy((...args) => args.indexOf('foo-close') !== -1 ? 'bar-close' : null);
       const component = new BetaBar({
         closeCookieName: 'foo-close',
         closeCookieValue: 'bar-close',
         reactCookieInstance,
       }, { });
-      stub(component, 'setState');
+      chai.spy.on(component, 'setState');
       component.componentWillMount();
-      component.setState.calledOnce.should.eql(true);
-      component.setState.lastCall.args[0].should.eql({
+      component.setState.should.have.been.called.once();
+      component.setState.should.have.been.called.with({
         wasDismissed: true,
       });
     });
