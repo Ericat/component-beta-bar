@@ -35,14 +35,14 @@ describe('BetaBar component', () => {
       }, {});
       component.handleFallback();
       reactCookieInstance.save.should.have.been.called.once();
-      reactCookieInstance.save.should.have.been.called.with([
+      reactCookieInstance.save.should.have.been.called.with(
         'foo',
         'bar',
         {
           maxAge: 30 * 24 * 60 * 60,
           path: '/',
-        },
-      ]);
+        }
+      );
     });
     it('calls props.onFallback', () => {
       const onFallback = chai.spy();
@@ -66,11 +66,11 @@ describe('BetaBar component', () => {
       chai.spy.on(component, 'setState');
       component.handleDismiss();
       reactCookieInstance.save.should.have.been.called.once();
-      reactCookieInstance.save.should.have.been.called.with([
+      reactCookieInstance.save.should.have.been.called.with(
         'foo-close',
-        'bar-close',
-      ]);
-      component.setState.save.should.have.been.called.with({
+        'bar-close'
+      );
+      component.setState.should.have.been.called.with({
         wasDismissed: true,
       });
     });
